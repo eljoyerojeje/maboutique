@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commande Confirmée - MaBoutique</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .success-container {
+            max-width: 700px;
+            margin: 3rem auto;
+            text-align: center;
+        }
+
+        .success-icon {
+            font-size: 6rem;
+            margin-bottom: 1rem;
+        }
+
+        .success-card {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            padding: 3rem;
+            box-shadow: var(--box-shadow-lg);
+        }
+
+        .success-card h1 {
+            color: var(--success-color);
+            margin-bottom: 1rem;
+        }
+
+        .order-number {
+            font-size: 1.25rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        .order-number strong {
+            color: var(--primary-color);
+        }
+
+        .success-message {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--dark);
+            margin-bottom: 2rem;
+        }
+
+        .action-buttons-success {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-main">
+            <div class="container">
+                <a href="index.html" class="logo">
+                    🛍️ MaBoutique
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="section">
+        <div class="success-container">
+            <div class="success-card fade-in">
+                <div class="success-icon">✅</div>
+                <h1>Commande Confirmée !</h1>
+                <p class="order-number">
+                    Numéro de commande : <strong id="order-number">#</strong>
+                </p>
+                <div class="success-message">
+                    <p>Merci pour votre achat !</p>
+                    <p>Votre commande a été confirmée et sera traitée dans les plus brefs délais.</p>
+                    <p>Vous recevrez un email de confirmation avec tous les détails de votre commande.</p>
+                </div>
+
+                <div class="action-buttons-success">
+                    <a href="profile.html" class="btn btn-primary">Voir mes commandes</a>
+                    <a href="products.html" class="btn btn-outline">Continuer mes achats</a>
+                    <a href="index.html" class="btn btn-secondary">Retour à l'accueil</a>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; padding: 1.5rem; background-color: var(--light-gray); border-radius: var(--border-radius);">
+                <h3 style="margin-bottom: 1rem;">Prochaines étapes</h3>
+                <div style="text-align: left; max-width: 500px; margin: 0 auto;">
+                    <p>📧 <strong>Confirmation par email</strong> - Vous recevrez un email de confirmation</p>
+                    <p>📦 <strong>Préparation</strong> - Votre commande sera préparée sous 24-48h</p>
+                    <p>🚚 <strong>Expédition</strong> - Vous serez notifié lors de l'expédition</p>
+                    <p>🏠 <strong>Livraison</strong> - Livraison sous 3-5 jours ouvrés</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>À Propos</h3>
+                    <p>MaBoutique est votre destination pour le shopping en ligne.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Liens Rapides</h3>
+                    <ul>
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="products.html">Produits</a></li>
+                        <li><a href="cart.html">Panier</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Service Client</h3>
+                    <ul>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Livraison</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Suivez-nous</h3>
+                    <ul>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Twitter</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 MaBoutique. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script>
+        // Get order ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const orderId = urlParams.get('orderId');
+
+        if (orderId) {
+            document.getElementById('order-number').textContent = '#' + orderId.substr(-8).toUpperCase();
+        } else {
+            document.getElementById('order-number').textContent = '#XXXXXXXX';
+        }
+    </script>
+</body>
+</html>
