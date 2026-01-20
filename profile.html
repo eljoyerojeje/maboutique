@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Compte - MaBoutique</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .profile-container {
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .profile-header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .profile-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--light-gray);
+        }
+
+        .profile-tab {
+            padding: 1rem 2rem;
+            background: none;
+            color: var(--gray);
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+        }
+
+        .profile-tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .info-card {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 1.5rem;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .info-value {
+            color: var(--gray);
+        }
+
+        .orders-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .order-card {
+            background-color: var(--white);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .order-status {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .order-status.pending {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        .order-status.processing {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+
+        .order-status.shipped {
+            background-color: #e0e7ff;
+            color: #3730a3;
+        }
+
+        .order-status.delivered {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+
+        .order-items {
+            margin-top: 1rem;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            <div class="container">
+                <div>
+                    <span>📧 contact@boutique.com</span>
+                    <span>📞 +33 1 23 45 67 89</span>
+                </div>
+                <div>
+                    <a href="login.html" class="auth-link">Connexion</a>
+                    <a href="register.html" class="auth-link">Inscription</a>
+                    <a href="profile.html" class="user-link" style="display: none;">Mon Compte</a>
+                    <a href="#" id="logout-btn" class="user-link" style="display: none;">Déconnexion</a>
+                    <a href="admin.html" class="admin-link" style="display: none;">Admin</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="header-main">
+            <div class="container">
+                <button class="mobile-menu-toggle">☰</button>
+                <a href="index.html" class="logo">
+                    🛍️ MaBoutique
+                </a>
+
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="Rechercher des produits...">
+                    <button onclick="searchProducts()">🔍</button>
+                </div>
+
+                <div class="header-icons">
+                    <a href="wishlist.html" class="header-icon">
+                        ♥
+                        <span id="wishlist-badge" class="badge">0</span>
+                    </a>
+                    <a href="cart.html" class="header-icon">
+                        🛒
+                        <span id="cart-badge" class="badge">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <nav class="nav-main">
+            <div class="container">
+                <a href="index.html">🏠 Accueil</a>
+                <a href="products.html">🛍️ Tous les Produits</a>
+                <a href="products.html?category=cat-1">💻 Électronique</a>
+                <a href="products.html?category=cat-2">👔 Vêtements</a>
+                <a href="products.html?category=cat-3">🏠 Maison</a>
+                <a href="products.html?category=cat-4">⚽ Sports</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="section">
+        <div class="profile-container">
+            <div class="profile-header">
+                <h1>👤 Mon Compte</h1>
+                <p id="user-email"></p>
+            </div>
+
+            <div class="profile-tabs">
+                <button class="profile-tab active" onclick="switchTab('info')">Informations</button>
+                <button class="profile-tab" onclick="switchTab('orders')">Mes Commandes</button>
+            </div>
+
+            <div id="tab-info" class="tab-content active">
+                <div class="info-card">
+                    <h3>Informations personnelles</h3>
+                    <div id="user-info"></div>
+                </div>
+            </div>
+
+            <div id="tab-orders" class="tab-content">
+                <div class="orders-list" id="orders-list">
+                    <!-- Orders will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>À Propos</h3>
+                    <p>MaBoutique est votre destination pour le shopping en ligne.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Liens Rapides</h3>
+                    <ul>
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="products.html">Produits</a></li>
+                        <li><a href="cart.html">Panier</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Service Client</h3>
+                    <ul>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Livraison</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Suivez-nous</h3>
+                    <ul>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Twitter</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 MaBoutique. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script>
+        // Check if logged in
+        if (!Auth.isLoggedIn()) {
+            window.location.href = 'login.html';
+        }
+
+        const user = APP_STATE.currentUser;
+
+        function displayUserInfo() {
+            document.getElementById('user-email').textContent = user.email;
+
+            const userInfoHtml = `
+                <div class="info-row">
+                    <span class="info-label">Nom</span>
+                    <span class="info-value">${user.name}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Email</span>
+                    <span class="info-value">${user.email}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Téléphone</span>
+                    <span class="info-value">${user.phone || 'Non renseigné'}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Adresse</span>
+                    <span class="info-value">${user.address || 'Non renseignée'}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Ville</span>
+                    <span class="info-value">${user.city || 'Non renseignée'}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Code postal</span>
+                    <span class="info-value">${user.postal_code || 'Non renseigné'}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Pays</span>
+                    <span class="info-value">${user.country || 'Non renseigné'}</span>
+                </div>
+            `;
+
+            document.getElementById('user-info').innerHTML = userInfoHtml;
+        }
+
+        async function loadOrders() {
+            const orders = await API.getUserOrders(user.id);
+
+            if (orders.length === 0) {
+                document.getElementById('orders-list').innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📦</div>
+                        <h3>Aucune commande</h3>
+                        <p>Vous n'avez pas encore passé de commande</p>
+                        <a href="products.html" class="btn btn-primary">Commencer mes achats</a>
+                    </div>
+                `;
+                return;
+            }
+
+            const ordersHtml = orders.map(order => `
+                <div class="order-card">
+                    <div class="order-header">
+                        <div>
+                            <strong>Commande #${order.id.substr(-8)}</strong>
+                            <div style="color: var(--gray); font-size: 0.875rem;">
+                                ${Utils.formatDate(order.order_date)}
+                            </div>
+                        </div>
+                        <span class="order-status ${order.status}">${order.status}</span>
+                    </div>
+                    <div class="order-items">
+                        ${JSON.parse(order.items || '[]').map(item => `
+                            <div class="order-item">
+                                <span>${item.name} x${item.quantity}</span>
+                                <span>${Utils.formatPrice(item.price * item.quantity)}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="order-header" style="border-top: 1px solid var(--light-gray); margin-top: 1rem; padding-top: 1rem;">
+                        <strong>Total</strong>
+                        <strong style="color: var(--primary-color);">${Utils.formatPrice(order.total)}</strong>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('orders-list').innerHTML = ordersHtml;
+        }
+
+        function switchTab(tab) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.querySelectorAll('.profile-tab').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(`tab-${tab}`).classList.add('active');
+            event.target.classList.add('active');
+
+            // Load orders if needed
+            if (tab === 'orders') {
+                loadOrders();
+            }
+        }
+
+        function searchProducts() {
+            const query = document.getElementById('search-input').value;
+            if (query) {
+                window.location.href = `products.html?search=${encodeURIComponent(query)}`;
+            }
+        }
+
+        // Initialize
+        displayUserInfo();
+    </script>
+</body>
+</html>
