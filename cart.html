@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panier - MaBoutique</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            <div class="container">
+                <div>
+                    <span>📧 contact@boutique.com</span>
+                    <span>📞 +33 1 23 45 67 89</span>
+                </div>
+                <div>
+                    <a href="login.html" class="auth-link">Connexion</a>
+                    <a href="register.html" class="auth-link">Inscription</a>
+                    <a href="profile.html" class="user-link" style="display: none;">Mon Compte</a>
+                    <a href="#" id="logout-btn" class="user-link" style="display: none;">Déconnexion</a>
+                    <a href="admin.html" class="admin-link" style="display: none;">Admin</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="header-main">
+            <div class="container">
+                <button class="mobile-menu-toggle">☰</button>
+                <a href="index.html" class="logo">
+                    🛍️ MaBoutique
+                </a>
+
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="Rechercher des produits...">
+                    <button onclick="searchProducts()">🔍</button>
+                </div>
+
+                <div class="header-icons">
+                    <a href="wishlist.html" class="header-icon">
+                        ♥
+                        <span id="wishlist-badge" class="badge">0</span>
+                    </a>
+                    <a href="cart.html" class="header-icon">
+                        🛒
+                        <span id="cart-badge" class="badge">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <nav class="nav-main">
+            <div class="container">
+                <a href="index.html">🏠 Accueil</a>
+                <a href="products.html">🛍️ Tous les Produits</a>
+                <a href="products.html?category=cat-1">💻 Électronique</a>
+                <a href="products.html?category=cat-2">👔 Vêtements</a>
+                <a href="products.html?category=cat-3">🏠 Maison</a>
+                <a href="products.html?category=cat-4">⚽ Sports</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="section">
+        <div class="container">
+            <h1 class="section-title">🛒 Mon Panier</h1>
+
+            <div id="cart-content">
+                <!-- Cart will be loaded here -->
+            </div>
+
+            <div id="empty-cart" class="empty-state" style="display: none;">
+                <div class="empty-state-icon">🛒</div>
+                <h3>Votre panier est vide</h3>
+                <p>Découvrez nos produits et commencez vos achats</p>
+                <a href="products.html" class="btn btn-primary">Découvrir nos produits</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>À Propos</h3>
+                    <p>MaBoutique est votre destination pour le shopping en ligne.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Liens Rapides</h3>
+                    <ul>
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="products.html">Produits</a></li>
+                        <li><a href="cart.html">Panier</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Service Client</h3>
+                    <ul>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Livraison</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Suivez-nous</h3>
+                    <ul>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Twitter</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 MaBoutique. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script>
+        function displayCart() {
+            const cart = APP_STATE.cart;
+            const contentDiv = document.getElementById('cart-content');
+            const emptyDiv = document.getElementById('empty-cart');
+
+            if (cart.length === 0) {
+                contentDiv.style.display = 'none';
+                emptyDiv.style.display = 'block';
+                return;
+            }
+
+            const subtotal = Cart.getTotal();
+            const shipping = subtotal > 50 ? 0 : 5.99;
+            const total = subtotal + shipping;
+
+            const cartHtml = `
+                <div class="cart-container">
+                    <div class="cart-items">
+                        <h2 style="margin-bottom: 1.5rem;">Articles (${cart.length})</h2>
+                        ${cart.map(item => UI.createCartItem(item)).join('')}
+                    </div>
+
+                    <div class="cart-summary">
+                        <h3>Récapitulatif</h3>
+                        <div class="summary-row">
+                            <span>Sous-total</span>
+                            <span>${Utils.formatPrice(subtotal)}</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Livraison</span>
+                            <span>${shipping === 0 ? 'GRATUITE' : Utils.formatPrice(shipping)}</span>
+                        </div>
+                        ${shipping > 0 ? `
+                            <div class="alert alert-info" style="margin: 1rem 0; font-size: 0.875rem;">
+                                Ajoutez ${Utils.formatPrice(50 - subtotal)} pour profiter de la livraison gratuite !
+                            </div>
+                        ` : ''}
+                        <div class="summary-row total">
+                            <span>Total</span>
+                            <span>${Utils.formatPrice(total)}</span>
+                        </div>
+                        <a href="checkout.html" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+                            Procéder au paiement
+                        </a>
+                        <a href="products.html" class="btn btn-outline" style="width: 100%; margin-top: 0.5rem;">
+                            Continuer mes achats
+                        </a>
+                    </div>
+                </div>
+            `;
+
+            contentDiv.innerHTML = cartHtml;
+            contentDiv.style.display = 'block';
+            emptyDiv.style.display = 'none';
+        }
+
+        function searchProducts() {
+            const query = document.getElementById('search-input').value;
+            if (query) {
+                window.location.href = `products.html?search=${encodeURIComponent(query)}`;
+            }
+        }
+
+        // Initialize
+        displayCart();
+    </script>
+</body>
+</html>
