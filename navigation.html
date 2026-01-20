@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Rapide - MaBoutique</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 900px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2563eb;
+            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 3rem;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .section h2 {
+            color: #1f2937;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+
+        .links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .link {
+            display: block;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .link.primary {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+        }
+
+        .link.secondary {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+
+        .link.success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .link.danger {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        }
+
+        .info-box {
+            background: #f3f4f6;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+            border-left: 4px solid #2563eb;
+        }
+
+        .info-box h3 {
+            color: #2563eb;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-box p {
+            color: #4b5563;
+            line-height: 1.6;
+        }
+
+        .credentials {
+            background: #fef3c7;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .credentials strong {
+            color: #92400e;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .links {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛍️ MaBoutique</h1>
+        <p class="subtitle">Site E-commerce Moderne - Navigation Rapide</p>
+
+        <div class="section">
+            <h2>🏠 Pages Principales</h2>
+            <div class="links">
+                <a href="index.html" class="link primary">🏠 Accueil</a>
+                <a href="products.html" class="link primary">🛍️ Catalogue</a>
+                <a href="cart.html" class="link primary">🛒 Panier</a>
+                <a href="wishlist.html" class="link primary">♥ Favoris</a>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔐 Authentification</h2>
+            <div class="links">
+                <a href="login.html" class="link secondary">🔑 Connexion</a>
+                <a href="register.html" class="link secondary">📝 Inscription</a>
+                <a href="profile.html" class="link secondary">👤 Mon Profil</a>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>💳 Processus d'Achat</h2>
+            <div class="links">
+                <a href="checkout.html" class="link success">💳 Paiement</a>
+                <a href="order-success.html?orderId=demo" class="link success">✅ Confirmation</a>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔧 Administration</h2>
+            <div class="links">
+                <a href="admin.html" class="link danger">🔧 Dashboard Admin</a>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h3>ℹ️ Informations Importantes</h3>
+            <p>
+                <strong>📦 Produits de démonstration :</strong> 12 produits répartis en 6 catégories<br>
+                <strong>🎨 Design :</strong> Moderne, responsive, optimisé mobile<br>
+                <strong>💾 Données :</strong> API RESTful + LocalStorage<br>
+                <strong>🔒 Sécurité :</strong> Authentification avec gestion de rôles
+            </p>
+
+            <div class="credentials">
+                <p><strong>🔐 Compte Administrateur :</strong></p>
+                <p>Email : <strong>admin@boutique.com</strong></p>
+                <p>Mot de passe : <strong>admin123</strong></p>
+            </div>
+        </div>
+
+        <div class="info-box" style="border-left-color: #10b981; margin-top: 1rem;">
+            <h3>✨ Fonctionnalités Implémentées</h3>
+            <p>
+                ✅ Catalogue avec filtres avancés<br>
+                ✅ Panier intelligent avec calcul automatique<br>
+                ✅ Système d'authentification complet<br>
+                ✅ Paiement carte bancaire et PayPal<br>
+                ✅ Interface administrateur CRUD complète<br>
+                ✅ Liste de favoris (wishlist)<br>
+                ✅ Gestion des commandes et statuts<br>
+                ✅ Design responsive et moderne
+            </p>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem; color: #6b7280;">
+            <p>📚 Consultez le <a href="README.md" style="color: #2563eb; font-weight: 600;">README.md</a> pour la documentation complète</p>
+        </div>
+    </div>
+</body>
+</html>
